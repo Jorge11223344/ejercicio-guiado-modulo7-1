@@ -33,3 +33,12 @@ def editar_tarea(request,pk):
         form = TareaForm(instance=tarea)
         return render(request, 'editar_tarea.html', {'form':
         form, 'tarea':tarea})
+    
+
+def eliminar_tarea(request, pk):
+    tarea = get_object_or_404(Tarea, pk=pk)
+    if request.method == "POST":
+        tarea.delete()
+        return redirect('lista_tareas')
+    # GET: mostrar confirmación
+    return render(request, 'eliminar_tarea.html', {'tarea': tarea})
